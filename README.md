@@ -90,6 +90,18 @@ fully callable — LifeOps' own agent (see below) calls them through the exact
 same `invokeTool` dispatcher, just from the browser instead of from
 `document.modelContext`.
 
+The browser's imperative execution API takes the registered tool and a JSON
+string of arguments. For a tool with no inputs, use:
+
+```js
+const tool = (await document.modelContext.getTools()).find((t) => t.name === "get_budget");
+await document.modelContext.executeTool(tool, "{}");
+```
+
+Passing `{}` directly causes the browser to fail while parsing the input
+arguments. `executeTool` also requires the `RegisteredTool` object returned by
+`getTools()`, not the tool name.
+
 ## Human + agent collaboration
 
 The agent does not blindly execute everything. Every tool declares one of

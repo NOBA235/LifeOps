@@ -179,6 +179,8 @@ export function resolveApprovalTicket(ticketId: string, approved: boolean) {
 declare global {
   interface Document {
     modelContext?: {
+      getTools: () => Promise<unknown[]>;
+      executeTool: (tool: unknown, inputArguments: string) => Promise<unknown>;
       registerTool: (def: {
         name: string;
         description: string;
