@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+:root {
+  /* Canvas & ink */
+  --canvas: #fafaf9;
+  --canvas-raised: #ffffff;
+  --canvas-sunken: #f2f1ee;
+  --ink: #14161a;
+  --ink-soft: #4b4e55;
+  --slate: #6b7280;
+  --line: #e4e4e1;
+  --line-strong: #d3d2cd;
+
+  /* Signal palette — used sparingly and semantically only */
+  --signal: #2a5df2;
+  --signal-soft: #e8edfd;
+  --amber: #b6650a;
+  --amber-soft: #faeee0;
+  --green: #1f8a57;
+  --green-soft: #e8f4ee;
+  --red: #b3261e;
+  --red-soft: #fbeae9;
+
+  --radius-sm: 5px;
+  --radius-md: 8px;
+
+  --font-ui: "IBM Plex Sans";
+  --font-mono-face: "IBM Plex Mono";
+  --font-display: "Fraunces Variable";
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-canvas-raised: var(--canvas-raised);
+  --color-canvas-sunken: var(--canvas-sunken);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-slate: var(--slate);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-green: var(--green);
+  --color-green-soft: var(--green-soft);
+  --color-red: var(--red);
+  --color-red-soft: var(--red-soft);
+  --font-sans: var(--font-ui), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, monospace;
+  --font-display: var(--font-display), ui-serif, serif;
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--signal-soft);
+  color: var(--ink);
+}
+
+/* Scrollbars: quiet, not decorative */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Pulse used only for the single "agent connected" live indicator */
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.live-dot {
+  animation: live-pulse 2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-dot { animation: none; }
+}
